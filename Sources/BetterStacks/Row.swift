@@ -7,16 +7,20 @@
 
 import SwiftUI
 
-struct Row: Layout {
+public struct Row: Layout {
     
-    var arrangement: Arrangement
+    public var arrangement: Arrangement
     
-    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) -> CGSize {
+    public init(arrangement: Arrangement) {
+        self.arrangement = arrangement
+    }
+    
+    public func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) -> CGSize {
         cache.sizeItems(for: proposal, with: subviews)
         return CGSize(width: cache.requiredWidth!, height: cache.requiredHeight!)
     }
     
-    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) {
+    public func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout CacheData) {
         cache.sizeItems(for: proposal, with: subviews)
         guard let totalItemWidth = cache.totalItemWidth,
               let itemSizes = cache.itemSizes
@@ -87,13 +91,13 @@ struct Row: Layout {
         }
     }
     
-    func makeCache(subviews: Subviews) -> CacheData {
+    public func makeCache(subviews: Subviews) -> CacheData {
         return CacheData()
     }
 }
 
 extension Row {
-    struct CacheData {
+    public struct CacheData {
         var totalItemWidth: CGFloat?
         var itemSizes: [CGSize]?
         var requiredHeight: CGFloat?
@@ -155,7 +159,7 @@ extension Row {
 }
 
 extension Row {
-    enum Arrangement {
+    public enum Arrangement {
         case spacedBy(CGFloat)
         case spaceBetween
         case spaceEvenly
